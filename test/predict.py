@@ -4,7 +4,7 @@ import json
 def test_predict_endpoint():
     url = 'http://127.0.0.1:8000/predict/'  # API のエンドポイント
     headers = {'Content-Type': 'application/json'}  # ヘッダーの設定
-    data = {'value': 7.4}  # リクエストボディ (JSON 形式)
+    data = {'value': 77.4}  # リクエストボディ (JSON 形式)
 
     try:
         response = requests.post(url, headers=headers, data=json.dumps(data))  # POST リクエストを送信
@@ -14,11 +14,11 @@ def test_predict_endpoint():
 
         # ここで、レスポンスの内容を検証する (例: 予測値が期待される範囲内にあるか)
         assert isinstance(result, dict)
-        assert 'input' in result
-        assert 'prediction' in result
-        assert isinstance(result['input'], float)
-        assert isinstance(result['prediction'], float)
-        assert result['input'] == data['value']
+        assert 'value' in result
+        assert 'pred' in result
+        assert isinstance(result['value'], float)
+        assert isinstance(result['pred'], float)
+        assert result['value'] == data['value']
 
     except requests.exceptions.RequestException as e:
         print(f'Request failed: {e}')
